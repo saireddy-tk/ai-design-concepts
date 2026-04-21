@@ -100,13 +100,14 @@ Every unit of work in A2A is modelled as a Task. A task has a unique ID, a histo
 
 ### All Task States
 
-State,Terminal?,Meaning,Agent must…
-submitted,No,Task received; agent has not yet started processing.,Persist the task ID immediately. Respond within 500ms.
-working,No,Agent is actively processing. May stream partial artifacts.,Emit SSE events for streaming-capable tasks. Must not stay in this state >10 min without a heartbeat event.
-input-required,No,Agent needs more information before proceeding. Blocks until client sends more.,Include a clear message describing exactly what is needed. Set inputSchema if the expected input is structured.
-completed,Yes,Task finished successfully. Final artifacts available.,Include all output in the final task response. No further mutations allowed.
-failed,Yes,Task failed due to agent error or unrecoverable upstream failure.,Include an error object with code and message. Log the cause internally.
-canceled,Yes,Client requested cancellation via tasks/cancel.,Stop processing immediately. Release all held resources. Respond within 2s.
+| State | Terminal? | Meaning | Agent must… |
+|-------|-----------|---------|-------------|
+| submitted | No | Task received; agent has not yet started processing. | Persist the task ID immediately. Respond within 500ms. |
+| working | No | Agent is actively processing. May stream partial artifacts. | Emit SSE events for streaming-capable tasks. Must not stay in this state >10 min without a heartbeat event. |
+| input-required | No | Agent needs more information before proceeding. Blocks until client sends more. | Include a clear message describing exactly what is needed. Set inputSchema if the expected input is structured. |
+| completed | Yes | Task finished successfully. Final artifacts available. | Include all output in the final task response. No further mutations allowed. |
+| failed | Yes | Task failed due to agent error or unrecoverable upstream failure. | Include an error object with code and message. Log the cause internally. |
+| canceled | Yes | Client requested cancellation via tasks/cancel. | Stop processing immediately. Release all held resources. Respond within 2s. |
 
 ## Illegal Transitions — Enforce These
 
