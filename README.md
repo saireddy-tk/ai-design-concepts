@@ -1,4 +1,4 @@
-# AI Systems Design
+# AI Design Concepts
 
 A structured breakdown of AI system design concepts bridging theory, architecture, and production reality.
 
